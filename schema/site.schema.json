@@ -2408,18 +2408,17 @@
           "type": "integer",
           "default": 0
         }
+      }
+    },
+    "symbolsSource": {
+      "description": "What source to use for symbols per-language.",
+      "type": "object",
+      "additionalProperties": {
+        "enum": ["ctags", "tree-sitter", "off"]
       },
-      "examples": [
-        {
-          "enabled": true,
-          "model": "code-completion",
-          "chatModel": "chat",
-          "completionModel": "code-completion",
-          "accessToken": "abc123",
-          "provider": "openai",
-          "perUserDailyLimit": 100
-        }
-      ]
+      "propertyNames": {
+        "$ref": "#/definitions/SymbolsLanguages"
+      }
     }
   },
   "definitions": {
@@ -3235,6 +3234,59 @@
           "type": "string"
         }
       }
+    },
+    "SymbolsLanguages": {
+      "$comment": "Language list obtained from https://github.com/sourcegraph/go-ctags/blob/main/language-mapping.go",
+      "type": "string",
+      "enum": [
+        "basic",
+        "c",
+        "csharp",
+        "cpp",
+        "clojure",
+        "cobol",
+        "css",
+        "cuda",
+        "d",
+        "elixir",
+        "elm",
+        "erlang",
+        "go",
+        "graphQL",
+        "groovy",
+        "haskell",
+        "java",
+        "javaScript",
+        "jsonnet",
+        "kotlin",
+        "lisp",
+        "lua",
+        "matLab",
+        "objectiveC",
+        "ocaml",
+        "pascal",
+        "perl",
+        "perl6",
+        "php",
+        "powershell",
+        "protobuf",
+        "python",
+        "r",
+        "ruby",
+        "rust",
+        "scala",
+        "scheme",
+        "sh",
+        "swift",
+        "systemVerilog",
+        "tcl",
+        "thrift",
+        "typescript",
+        "tsx",
+        "verilog",
+        "vhdl",
+        "vim"
+      ]
     }
   }
 }

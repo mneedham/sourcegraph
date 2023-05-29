@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	edb "github.com/sourcegraph/sourcegraph/enterprise/internal/database"
+	"github.com/sourcegraph/sourcegraph/internal/auth"
 	"github.com/sourcegraph/sourcegraph/internal/authz"
 	"github.com/sourcegraph/sourcegraph/internal/conf"
 	"github.com/sourcegraph/sourcegraph/internal/database"
@@ -37,10 +38,8 @@ func TestPermsSyncerScheduler_scheduleJobs(t *testing.T) {
 		t.Skip()
 	}
 
-	zeroBackoffDuringTest = true
 	t.Cleanup(func() {
 		conf.Mock(nil)
-		zeroBackoffDuringTest = false
 	})
 
 	ctx := context.Background()
@@ -207,7 +206,9 @@ type testJob struct {
 }
 
 func runJobsTest(t *testing.T, ctx context.Context, logger log.Logger, db database.DB, store database.PermissionSyncJobStore, wantJobs []testJob) {
-	count, err := scheduleJobs(ctx, db, logger)
+	count, err := scheduleJobs(ctx, db, logger, auth.Backoff{
+		ZeroBackoff: true,
+	})
 	require.NoError(t, err)
 	require.Equal(t, len(wantJobs), count)
 

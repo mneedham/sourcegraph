@@ -17,7 +17,6 @@ import (
 	"github.com/sourcegraph/sourcegraph/cmd/frontend/envvar"
 	"github.com/sourcegraph/sourcegraph/cmd/frontend/globals"
 	"github.com/sourcegraph/sourcegraph/cmd/frontend/graphqlbackend"
-	authworker "github.com/sourcegraph/sourcegraph/enterprise/cmd/frontend/worker/auth"
 	edb "github.com/sourcegraph/sourcegraph/enterprise/internal/database"
 	"github.com/sourcegraph/sourcegraph/enterprise/internal/licensing"
 	"github.com/sourcegraph/sourcegraph/internal/api"
@@ -731,13 +730,13 @@ func (s permissionsSyncingStats) ReposWithNoPermissions(ctx context.Context) (in
 }
 
 func (s permissionsSyncingStats) UsersWithStalePermissions(ctx context.Context) (int32, error) {
-	count, err := s.db.Perms().CountUsersWithStalePerms(ctx, authworker.SyncUserBackoff())
+	count, err := s.db.Perms().CountUsersWithStalePerms(ctx, new(auth.Backoff).SyncUserBackoff())
 
 	return int32(count), err
 }
 
 func (s permissionsSyncingStats) ReposWithStalePermissions(ctx context.Context) (int32, error) {
-	count, err := s.db.Perms().CountReposWithStalePerms(ctx, authworker.SyncRepoBackoff())
+	count, err := s.db.Perms().CountReposWithStalePerms(ctx, new(auth.Backoff).SyncRepoBackoff())
 
 	return int32(count), err
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/sourcegraph/sourcegraph/cmd/frontend/globals"
 	"github.com/sourcegraph/sourcegraph/cmd/worker/job"
 	workerdb "github.com/sourcegraph/sourcegraph/cmd/worker/shared/init/db"
-	"github.com/sourcegraph/sourcegraph/enterprise/cmd/frontend/worker/auth"
+	"github.com/sourcegraph/sourcegraph/enterprise/cmd/worker/internal/auth"
 	"github.com/sourcegraph/sourcegraph/enterprise/cmd/worker/internal/batches"
 	"github.com/sourcegraph/sourcegraph/enterprise/cmd/worker/internal/codeintel"
 	"github.com/sourcegraph/sourcegraph/enterprise/cmd/worker/internal/codemonitors"

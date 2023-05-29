@@ -5,10 +5,10 @@ import (
 
 	"github.com/sourcegraph/log"
 
-	"github.com/sourcegraph/sourcegraph/cmd/frontend/auth/providers"
 	"github.com/sourcegraph/sourcegraph/enterprise/cmd/frontend/internal/auth/openidconnect"
 	"github.com/sourcegraph/sourcegraph/enterprise/internal/cloud"
 	"github.com/sourcegraph/sourcegraph/internal/auth"
+	"github.com/sourcegraph/sourcegraph/internal/auth/providers"
 	osssourcegraphoperator "github.com/sourcegraph/sourcegraph/internal/auth/sourcegraphoperator"
 	"github.com/sourcegraph/sourcegraph/internal/conf"
 	"github.com/sourcegraph/sourcegraph/internal/conf/conftypes"

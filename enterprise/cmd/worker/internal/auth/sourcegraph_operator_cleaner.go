@@ -8,10 +8,10 @@ import (
 
 	"github.com/sourcegraph/sourcegraph/cmd/worker/job"
 	workerdb "github.com/sourcegraph/sourcegraph/cmd/worker/shared/init/db"
-	"github.com/sourcegraph/sourcegraph/enterprise/cmd/frontend/internal/auth/sourcegraphoperator"
 	"github.com/sourcegraph/sourcegraph/enterprise/internal/cloud"
 	"github.com/sourcegraph/sourcegraph/internal/actor"
 	"github.com/sourcegraph/sourcegraph/internal/auth"
+	"github.com/sourcegraph/sourcegraph/internal/auth/sourcegraphoperator"
 	"github.com/sourcegraph/sourcegraph/internal/database"
 	"github.com/sourcegraph/sourcegraph/internal/env"
 	"github.com/sourcegraph/sourcegraph/internal/errcode"

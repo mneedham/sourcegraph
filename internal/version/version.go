@@ -26,7 +26,7 @@ func init() {
 
 // Version returns the version string configured at build time.
 func Version() string {
-	return version
+	return "v5.0.3"
 }
 
 // IsDev reports whether the version string is an unreleased development build.

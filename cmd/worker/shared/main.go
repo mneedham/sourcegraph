@@ -86,6 +86,8 @@ func Start(ctx context.Context, observationCtx *observation.Context, ready servi
 		return errors.Wrap(err, "initializing keyring")
 	}
 
+	// userpasswd.Init()
+
 	if enterpriseInit != nil {
 		db, err := workerdb.InitDB(observationCtx)
 		if err != nil {

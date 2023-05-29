@@ -13,7 +13,7 @@ import (
 
 // MockLockoutStore is a mock implementation of the LockoutStore interface
 // (from the package
-// github.com/sourcegraph/sourcegraph/cmd/frontend/internal/auth/userpasswd)
+// github.com/sourcegraph/sourcegraph/internal/auth/userpasswd)
 // used for unit testing.
 type MockLockoutStore struct {
 	// GenerateUnlockAccountURLFunc is an instance of a mock function object

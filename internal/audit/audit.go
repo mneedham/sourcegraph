@@ -15,25 +15,6 @@ import (
 	"github.com/sourcegraph/sourcegraph/schema"
 )
 
-//func init() {
-//	// Validation only: Do NOT set any values in the configuration in this function.
-//	conf.ContributeValidator(func(c conftypes.SiteConfigQuerier) (problems conf.Problems) {
-//		if c.SiteConfig().Log == nil || c.SiteConfig().Log.AuditLog == nil {
-//			return
-//		}
-//		// we need to be at least at the same level as the overall sourcegraph log level
-//		auditLogLevel := log.Level(c.SiteConfig().Log.AuditLog.SeverityLevel).Parse()
-//		sgOverallLvl := log.Level(env.LogLevel).Parse()
-//		println("logging config")
-//		println(auditLogLevel.String())
-//		println(sgOverallLvl.String())
-//		if !sgOverallLvl.Enabled(auditLogLevel) {
-//			println("audit log is below current log level")
-//			return conf.NewSiteProblems("audit log is below current log level,")
-//		}
-//		return nil
-//	})
-//}
 
 // Log creates an INFO log statement that will be a part of the audit log.
 // The audit log records comply with the following design: an actor takes an action on an entity within a context.

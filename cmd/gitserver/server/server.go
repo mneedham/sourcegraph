@@ -1078,6 +1078,15 @@ func (s *Server) handleRepoUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	if r, err := s.DB.Repos().GetByName(ctx, req.Repo); err != nil {
+		logger.Warn("failed to retrieve repo from DB (this could be a data inconsistency)", log.Error(err))
+	} else if r.ExternalRepo.ServiceType == extsvc.TypePerforce {
+		s.Perforce.EnqueueChangelistMappingJob(&perforce.ChangelistMappingJob{
+			RepoName: req.Repo,
+			RepoDir:  s.dir(req.Repo),
+		})
+	}
+
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -2472,10 +2481,6 @@ func scanCRLF(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	return 0, nil, nil
 }
 
-func ScanCRLF(data []byte, atEOF bool) (advance int, token []byte, err error) {
-	return scanCRLF(data, atEOF)
-}
-
 // testGitRepoExists is a test fixture that overrides the return value for
 // GitRepoSyncer.IsCloneable when it is set.
 var testGitRepoExists func(ctx context.Context, remoteURL *vcs.URL) error
@@ -2619,13 +2624,6 @@ func (s *Server) doRepoUpdate(ctx context.Context, repo api.RepoName, revspec st
 
 	select {
 	case <-done:
-		if err != nil {
-			s.Logger.Warn("Pushing to perforcechangelistmapping queue")
-			s.Perforce.EnqueueChangelistMappingJob(&perforce.ChangelistMappingJob{
-				RepoName: repo,
-				RepoDir:  s.dir(repo),
-			})
-		}
 		return errors.Wrapf(err, "repo %s:", repo)
 	case <-ctx.Done():
 		span.LogFields(otlog.String("event", "context canceled"))
